@@ -1,0 +1,15 @@
+
+body{
+	background-color:gray;
+	color:black;
+}
+
+p{
+	font-size: 20px;
+}
+
+#container{
+	border: 1px solid black;
+	padding: 50px;
+	display: inline-block;
+}

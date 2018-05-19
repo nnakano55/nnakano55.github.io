@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html> 
+    
+	<head>
+		<!-- Meta Tag -->
+		<meta charset="utf-8">
+		<!-- CSS Stylesheet -->
+		<link rel="stylesheet" type="text/css" href="Presentation1.css">  
+		<!-- D3.js Source -->
+		<script type= "text/javascript" src="https://d3js.org/d3.v4.min.js"></script> 
+		<script src="https://d3js.org/d3-contour.v1.min.js"></script>
+		<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+	</head>
+    
+	<body>
+		<script type="text/javascript" src="Presentation1.js"></script><br/>
+		<select onchange="change_name(value)">
+			  <option value="goldsteinPrice">goldsteinPrice</option>
+			  <option value="beale">beale</option>
+			  <option value="booth">booth</option>
+			  <option value="bukin">bukin</option>
+			  <option value="eggholder">eggholder</option>
+			  <option value="mccormick">mccormick</option>
+		</select><br/>
+		<input type="range" min="1" max="1000" value="240" class="slider" onchange="change_n(value)"/> n = <span id="n_text">240</span><br/>
+		<input type="range" min="1" max="1000" value="125" class="slider" onchange="change_m(value)"/> m = <span id="m_text">125</span><br/>
+		<input type="range" min="1" max="100" value="21" class="slider" oninput="change_div(value)"/> div = <span id="div_text">21</span><br/>
+		<input type="range" min="1" max="100" value="1" class="slider" oninput="change_mult(value)"/> mult = <span id="mult_text">1</span><br/>
+		<h3>Noriaki Nakano</h3>
+	</body>
+    
+</html>
