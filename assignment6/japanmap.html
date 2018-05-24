@@ -15,10 +15,16 @@
     <script type="text/javascript" src="japanmap.js"></script>
     <!-- Submission Info -->
     <!--<h4>Created by "Your Name" </h4>-->
-      <h4>Noriaki Nakano</h4>
+	<div>
+		<select id="data_select" onchange="change_data()">
+			<option value="populationdensity">population density</option>
+			<option value="population">population</option>
+		</select>
+	</div>
+	<h4>Noriaki Nakano</h4>
       
     <h4>Description: Popukation density of Japan. The more "red" the color is, the higher the population density</h4>
-   
+	
     <!-- Create a list using <ul> and <li> tag -->   
     <h4>Files Submitted:</h4>
     
@@ -33,7 +39,7 @@
 	<ul>
 		<li><a href="https://bl.ocks.org/john-guerra/43c7656821069d00dcbc" target="_blank">Draw GeoJSON</a></li>
 		<li><a href="https://stackoverflow.com/questions/22893789/d3-color-scale-linear-with-multiple-colors" target="_blank">Color scale</a></li>
-    </ul>
-      
+		<li><a href="https://bl.ocks.org/duspviz-mit/9b6dce37101c30ab80d0bf378fe5e583" target="_blank">Gradient Legend</a></li>
+	</ul>
   </body>
 </html>
