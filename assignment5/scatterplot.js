@@ -116,24 +116,31 @@
 	var zoom = d3.zoom()
 		.scaleExtent([1, 10])
 		.on("zoom", () => {
-			svg.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y+ ")scale(" + d3.event.transform.k + ")");
-	});
+			container.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y+ ")scale(" + d3.event.transform.k + ")");
+			xAxis.domain();
+			xAxisContainer.call(xAxis);
+		});
 	
     //Define SVG
       var svg = d3.select("body")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-		.call(zoom)
         .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+		.call(zoom);
+	
+	var container = svg.append("g");
+	var xAxisContainer;
+	var yAxisContainer;
+	
+	/*
 	var rect = svg.append("rect")
 		.attr("width", width)
 		.attr("height", height)
 		.style("fill", "none")
 		.style("pointer-events", "all");
-	
+	*/
 	
     //Define Scales   
     var xScale = d3.scaleLinear()
@@ -151,9 +158,11 @@
 		.attr("class", "tooltip")				
 		.style("opacity", 0);
       
+	var x_ticks = 20;
+	var y_ticks = 20;
     //Define Axis
-    var xAxis = d3.axisBottom(xScale).tickPadding(2);
-    var yAxis = d3.axisLeft(yScale).tickPadding(2);
+    var xAxis = d3.axisBottom(xScale).tickPadding(2).ticks(20);
+    var yAxis = d3.axisLeft(yScale).tickPadding(2).ticks(20);
     
     //Get Data
     d3.csv("scatterdata.csv", (d) => {
@@ -168,7 +177,7 @@
 		yScale.domain([0, d3.max(scatterdataset, (d) => parseFloat(d.ecc))]);
 		rScale.domain([0, Math.sqrt(d3.max(scatterdataset, (d) => parseFloat(d.total))) * 5]);
 		
-        svg.selectAll(".dot")
+        container.selectAll(".dot")
 			.data(scatterdataset)
 			.enter().append("circle")
 			.attr("class", "dot")
@@ -199,7 +208,10 @@
 
 		//Draw Country Names
 		///*
-		svg.selectAll(".text")
+		
+		
+		
+		container.selectAll(".text")
 			.data(scatterdataset)
 			.enter().append("text")
 			.attr("class","text")
@@ -211,10 +223,11 @@
 		//*/
 		
 	 //x-axis
-		svg.append("g")
+		xAxisContainer = svg.append("g")
 			.attr("class", "x axis")
-			.attr("transform", "translate(0," + height + ")")
-			.call(xAxis)
+			.attr("transform", "translate(0," + height + ")");
+		
+		xAxisContainer.call(xAxis)
 			.append("text")
 			.attr("class", "label")
 			.attr("y", 50)
@@ -225,7 +238,7 @@
 
 		
 		//Y-axis
-		svg.append("g")
+		yAxisContainer = svg.append("g")
 			.attr("class", "y axis")
 			.call(yAxis)
 			.append("text")

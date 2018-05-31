@@ -60,7 +60,9 @@ function draw(type)
 {// get CSV data and drwa geoJSON
 	svg.selectAll("*").remove();
 	d3.csv("japan_" + type + ".csv", (e, d) => {
-	
+		
+		console.log(e);
+		
 		data = d;
 		
 		console.log(d);
