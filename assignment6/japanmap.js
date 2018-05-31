@@ -164,21 +164,21 @@ function draw(type)
 			.style("fill", "url(#gradient)")
 			.attr("transform", "translate(0,0)");
 		
+		d3.json("japan.json", (e, d) => {// load JSON file 
+		
+			// draw GeoJSON 
+			svg.selectAll("path")
+				.data(d.features)
+				.enter()
+				.append("path")
+				.attr("d", (v)=> {return path(v);}) // send path value to append 
+				.attr("fill", (v, i) => color_scale(data[id_conversion[i] - 1][japanese_key[type]]))
+				.attr("stroke", "#222");
+				
+		});
 	});
 	
-	d3.json("japan.json", (e, d) => {// load JSON file 
-		
-		console.log(data);
-		// draw GeoJSON 
-		svg.selectAll("path")
-			.data(d.features)
-			.enter()
-			.append("path")
-			.attr("d", (v)=> {return path(v);}) // send path value to append 
-			.attr("fill", (v, i) => color_scale(data[id_conversion[i] - 1][japanese_key[type]]))
-			.attr("stroke", "#222");
-			
-	});
+	
 }// End draw	
 
 function change_data()
