@@ -60,13 +60,9 @@ function draw(type)
 {// get CSV data and drwa geoJSON
 	svg.selectAll("*").remove();
 	d3.csv("japan_" + type + ".csv", (e, d) => {
-		
-		console.log(e);
-		
+			
 		data = d;
-		
-		console.log(d);
-		
+
 		// set up min, pivot, and max
 		var min =  d3.min(d.map((v) => {
 			return parseFloat(v[japanese_key[type]]);
@@ -169,8 +165,10 @@ function draw(type)
 			.attr("transform", "translate(0,0)");
 		
 	});
-	d3.json("japan.json", (e, d) => {// load JSON file 
 	
+	d3.json("japan.json", (e, d) => {// load JSON file 
+		
+		console.log(data);
 		// draw GeoJSON 
 		svg.selectAll("path")
 			.data(d.features)
