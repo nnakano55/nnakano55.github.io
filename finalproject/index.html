@@ -7,25 +7,58 @@
 		<!-- CSS Stylesheet -->
 		<link rel="stylesheet" type="text/css" href="style.css">  
 		<!-- D3.js Source -->
-		<script type= "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script> 
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script> 
+		<script type="text/javascript" src="main.js"></script>
+		<script type="text/javascript" src="slider.js"></script>
+		<script type="text/javascript" src="tooltip.js"></script>
+
 	</head>
 
-	<body>
-		<h2>Japanese Suicide: Why?</h2>
-		<div id='container' class='center'>
-			<div id= "viz_1" class='center'>
-				<!-- viz#1 goes here --> 
-				viz#1 goes here 
-			</div>
-			
-			<div id= "viz_2" class ='center'>
-				<!-- viz#2 goes here -->
-				viz#2 goes here
-			</div>
-			
-			<div>
-				Tooltip: information about year and etc. 
-			</div>
-		</div>
+	<body onload="main()">
+		
+		<table align="center">
+			<tr>
+				<td colspan="2">
+					<div class="center">
+						<h2>Japanese Suicide: Why?</h2>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class='center'>
+						<!-- viz#1 goes here --> 
+						viz#1 goes here<br/>
+						<svg id="viz_1" width="600" height="400"></svg> 
+					</div>
+				</td>
+				<td>
+					<div class='center'>
+						<!-- viz#2 goes here -->
+						viz#2 goes here<br/>
+						<svg id="viz_2" width="600" height="400"></svg> 
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="2">
+					<!-- Custom Slider: https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
+					<div class='center'>
+						<p id="year">1960</p>
+						<input type="range" id="year_slider" min="1960" max="2017" value="50" class="slider" oninput="year_changed(this.value)">
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="2">
+					<div class='center'>
+						Tooltip: information about year and etc.<br/>
+						<svg id="tooltip" width="600" height="400"></svg> 
+					</div>
+				</td>
+			</tr>			
+		</table>
 	</body>
 </html>
