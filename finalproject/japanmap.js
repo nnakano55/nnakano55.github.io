@@ -137,17 +137,50 @@ function declare_map()
   d3.csv("src/preprefecture_1960to2000.csv", (e, d) => {
     data = d;       
     console.log(d);
-    draw_map(1960);
-  });
+	var year_data = new Array();
 
- 
+    data.forEach((d) => {
+      year_data.push(d[1960]);
+    });
+	
+	 // set up min, pivot, and max
+    var min =  d3.min(year_data.map((v) => {
+        return parseFloat(v);
+    }));
+   
+    var mean = d3.mean(year_data.map((v) => {
+        return parseFloat(v);
+    }));
+   
+    var max = d3.max(year_data.map((v) => {
+        return parseFloat(v);
+    }));
+   
+    // set color scale domain
+    color_scale.domain([
+        min,
+        mean,
+        max   
+    ]);
+	
+	d3.json("src/japan.json", (e, d) => {// load JSON file
+   
+        // draw GeoJSON
+        viz_1.selectAll("path")
+            .data(d.features)
+            .enter()
+            .append("path")
+            .attr("d", (v)=> {return path(v);}) // send path value to append
+            .attr("fill", (v, i) => color_scale(year_data[id_conversion[i] - 1]))
+            .attr("stroke", "#222");
+    });
+	//draw_map(1960);
+  });
 
 }
 
 function draw_map(year)
 {// get CSV data and draw geoJSON
-    console.log("called");
-    viz_1.selectAll("*").remove();
     var year_data = new Array();
 
     data.forEach((d) => {
@@ -174,22 +207,11 @@ function draw_map(year)
         mean,
         max   
     ]);
-
-
-    d3.json("src/japan.json", (e, d) => {// load JSON file
-   
-        // draw GeoJSON
-        viz_1.selectAll("path")
-            .data(d.features)
-            .enter()
-            .append("path")
-            .attr("d", (v)=> {return path(v);}) // send path value to append
-            .attr("fill", (v, i) => color_scale(year_data[id_conversion[i] - 1]))
-            .attr("stroke", "#222");
-           
-    });
-   
-   
+	
+	viz_1.selectAll("path")
+		.transition().duration(100)             // set how long our transitions take to complete
+        .delay(function(d,i) { return 100;})
+		.attr("fill", (d,i) => color_scale(year_data[id_conversion[i] - 1]));
    
 }// End draw   
 

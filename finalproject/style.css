@@ -17,6 +17,11 @@ div.tooltip{
 	margin-right: 30px;
 }
 
+div#legend1{
+	text-align:left;
+	padding-left:10px;
+}
+
 table#maintable th, td{
 	//border: 1px solid black;
 	background-color: lightgrey; 

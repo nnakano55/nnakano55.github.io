@@ -176,10 +176,9 @@ function declare_bargraph()
 			.attr("font-size", "10px");
 		
 		// place .text() at (dx,dy), rotate by 90 degrees
-		d3.select("g")
-			.append("text")
-			.attr("dx", -margin.left*1.5)
-			.attr("dy", -margin.top*5.8)
+		viz_2.append("text")
+			.attr("dx", -175)
+			.attr("dy", -65)
 			.attr("transform", "rotate(-90)")
 			.attr("text-anchor", "middle")
 			.text("Total Suicides");
