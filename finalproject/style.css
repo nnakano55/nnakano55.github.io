@@ -7,6 +7,11 @@ div.center{
 	text-align:center;
 }
 
+div.text{
+	margin:auto;
+	max-width: 600px;
+}
+
 .slider {
     -webkit-appearance: none;
     width: 600px;
