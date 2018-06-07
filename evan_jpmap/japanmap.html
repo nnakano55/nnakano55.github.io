@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html> 
+  <head>
+    <!-- Meta Tag -->
+    <meta charset="utf-8">
+    <title>Population Density in Japan</title>
+    <!-- CSS Stylesheet -->
+    <!--<link rel="stylesheet" type="text/css" href="scatterstylesheet.css">-->
+    <!-- D3.js Source -->
+    <script type= "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>  
+  </head>
+  <body>
+    <h1 style = "text-align:center; color:steelblue"><bold> Japanese Suicide Rate by Prefecture</bold></h1>
+      
+      
+      <script src="https://d3js.org/d3.v4.js"></script>
+<style type="text/css">
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis line, .axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+svg{
+  padding-left: 50px;
+}
+</style>
+</head>
+<body>
+  <div id="legend1"></div>
+      
+      
+    <!-- Your D3.js code for making a Bar Graph -->
+    <script type="text/javascript" src="japanmap.js"></script>
+    <!-- Submission Info -->
+    <!--<h4>Created by "Your Name" </h4>-->
+	<div>
+		<select id="data_select" onchange="change_data()">
+			<option value="populationdensity">population density</option>
+			<option value="population">population</option>
+		</select>
+	</div>
+	<h4>Noriaki Nakano</h4>
+      
+    <h4>Description: Popukation density of Japan. The more "red" the color is, the higher the population density</h4>
+	
+    <!-- Create a list using <ul> and <li> tag -->   
+    <h4>Files Submitted:</h4>
+    
+    <ul>
+      <li>japanmap.html</li>
+      <li>japanmap.js</li>
+      <li>japan_populationdensity.csv</li>
+      <li>japan.json</li>
+    </ul>
+      
+    <h4> Sources: </h4>
+	<ul>
+		<li><a href="https://bl.ocks.org/john-guerra/43c7656821069d00dcbc" target="_blank">Draw GeoJSON</a></li>
+		<li><a href="https://stackoverflow.com/questions/22893789/d3-color-scale-linear-with-multiple-colors" target="_blank">Color scale</a></li>
+		<li><a href="https://bl.ocks.org/duspviz-mit/9b6dce37101c30ab80d0bf378fe5e583" target="_blank">Gradient Legend</a></li>
+	</ul>
+  </body>
+</html>

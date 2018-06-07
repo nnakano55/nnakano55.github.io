@@ -17,5 +17,6 @@ var zone = [
 function year_changed(value)
 {
 	slider_text.innerHTML = value;
+	draw_map(value);
 }
 

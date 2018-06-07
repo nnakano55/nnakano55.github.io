@@ -11,12 +11,12 @@
 		<script type="text/javascript" src="main.js"></script>
 		<script type="text/javascript" src="slider.js"></script>
 		<script type="text/javascript" src="tooltip.js"></script>
-
+		<script type="text/javascript" src="japanmap.js"></script>
 	</head>
 
 	<body onload="main()">
 		
-		<table align="center">
+		<table align="center" id="main_table">
 			<tr>
 				<td colspan="2">
 					<div class="center">
@@ -33,46 +33,68 @@
 				</td>
 			</tr>
 			<tr>
+				<td colspan="2">
+					<h2 align="center" id="year">1960</h2>
+				</td>
+			</tr>
+			<tr>
 				<td>
 					<div class='center'>
 						<!-- viz#1 goes here --> 
-						viz#1(prefecture) goes here<br/>
-						<svg id="viz_1" width="600" height="400"></svg> 
+						<div id="legend1"></div>
+						<svg id="viz_1" width="500" height="500"></svg> 
 					</div>
 				</td>
 				<td>
 					<div class='center'>
 						<!-- viz#2 goes here -->
 						viz#2 goes here<br/>
-						<svg id="viz_2" width="600" height="400"></svg> 
+						<svg id="viz_2" width="500" height="500"></svg> 
 					</div>
 				</td>
 			</tr>
-
 			<tr>
 				<td colspan="2">
 					<!-- Custom Slider: https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
 					<div class='center'>
-						<p id="year">1960</p>
-						<input type="range" id="year_slider" min="1960" max="2017" value="50" class="slider" oninput="year_changed(this.value)">
+						<table id="inner_table">
+							<tr>
+							<td align="right">1960</td>
+							<td width="100%"><input type="range" id="year_slider" min="1960" max="2017" value="50" class="slider" step="5" oninput="year_changed(this.value)"></td>
+							<td align="left">2017</td>
+							</tr>
+						</table>
 					</div>
 				</td>
 			</tr>
 
 			<tr>
 				<td>
-					<div class='center'>
-						Tooltip: information about prefecture<br/>
-						<svg id="tooltip" width="600" height="400"></svg> 
+					
+					<div id="pref_info" class="tooltip">
+						<h3 align="center">Tokyo</h3><br/>
+						<p>&emsp;Information about the prefecture goes here</p>
 					</div>
+					<svg id="tooltip" width="600" height="400"></svg> 
+					
 				</td>
 				<td>
-					<div class='center'>
-						Tooltip: information about year and etc.<br/>
-						<svg id="tooltip_2" width="600" height="400"></svg> 
+					
+					<div id="year_info" class="tooltip">
+						<h3 align="center">Showa Era</h3> <br/>
+						<p>&emsp;Information about the time period goes here.</p>
+						
 					</div>
+						
+					<svg id="tooltip_2" width="600" height="400"></svg> 
+					
 				</td>
 			</tr>			
 		</table>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
 	</body>
 </html>
