@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html> 
+    
+  <head>
+    <!-- Meta Tag -->
+    <meta charset="utf-8"> <!-- specifies the character encoding -->
+    <!-- CSS Stylesheet: links the .css file to our DOM -->
+    <link rel="stylesheet" type="text/css" href="bar_graph.css">  
+    <!-- D3.js Source: links the minified d3.js library to our DOM -->
+    <script type= "text/javascript" src="https://d3js.org/d3.v4.min.js"></script> 
+  </head>
+    
+  <body>
+      <input id="slider" type="range" min="1978" max="2017" value="1978" step="1" />
+      <span id="range">1978</span>
+      <script type="text/javascript">
+          onload = function() {
+            var $ = function(id) { return document.getElementById(id); };
+            $('slider').oninput = function() { $('range').innerHTML = this.value; };
+            $('slider').oninput();
+          };
+      </script>
+      <script type="text/javascript" src="bar_graph.js"></script> 
+  </body>
+    
+</html>

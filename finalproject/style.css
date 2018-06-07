@@ -60,3 +60,9 @@ table#inner_table td{
     background: #4CAF50;
     cursor: pointer;
 }
+
+.axis text{
+    font: Times;
+    font-size: 12px;
+    font-weight: bold;
+}

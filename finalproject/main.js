@@ -13,7 +13,8 @@ function main()
 {	
 	//load the containers
 	viz_1 = d3.select("svg#viz_1").append("g");
-	viz_2 = d3.select("svg#viz_2");
+	viz_2 = d3.select("svg#viz_2").append("g")
+		.attr("transform", "translate(100, 50)");
 	tooltip = d3.select("svg#tooltip");		
 	tooltip_2 = d3.select("svg#tooltip_2");		
 
@@ -24,5 +25,6 @@ function main()
 	//call creation function 
 	create_tooltip();
 	declare_map();
+	declare_bargraph();
 }
 
