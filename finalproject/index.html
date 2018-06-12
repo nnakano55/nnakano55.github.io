@@ -21,7 +21,7 @@
 			<tr>
 				<td colspan="2">
 					<div class="center">
-						<h2>Japanese Suicide: Why?</h2>
+						<h1>Japanese Suicide: Why?</h1>
 						<div class="text">
 							<p>
 								This project visualizes the japanese suicide rate throughout the years. We are specifically
@@ -35,15 +35,16 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<h2 align="center" id="year">1960</h2>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<h3 align="center">Suicide by Prefectures</h3>
-				</td>
-				<td>
-					<h3 align="center">National Suicide by Age Groups</h3>
+					<!-- Custom Slider: https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
+					<div class='center'>
+						<table id="inner_table">
+							<tr>
+							<td align="right">2007</td>
+							<td width="100%"><input type="range" id="year_slider" min="2007" max="2017" value="50" class="slider" step="1" oninput="year_changed(this.value)"></td>
+							<td align="left">2017</td>
+							</tr>
+						</table>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -52,7 +53,7 @@
 						<!-- viz#1 goes here --> 
 						
 						<div id="legend1"></div>
-						<svg id="viz_1" width="500" height="500"></svg> 
+						<svg id="viz_1" width="800" height="500"></svg> 
 					</div>
 				</td>
 				<td>
@@ -63,27 +64,12 @@
 					</div>
 				</td>
 			</tr>
-			<tr>
-				<td colspan="2">
-					<!-- Custom Slider: https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
-					<div class='center'>
-						<table id="inner_table">
-							<tr>
-							<td align="right">1960</td>
-							<td width="100%"><input type="range" id="year_slider" min="1960" max="2017" value="50" class="slider" step="5" oninput="year_changed(this.value)"></td>
-							<td align="left">2017</td>
-							</tr>
-						</table>
-					</div>
-				</td>
-			</tr>
-
+			
+			<!--
 			<tr>
 				<!--
 				<col width="50%">
 				<col width="50%">
-				-->
-				<!--
 				<td>
 					
 					<div id="pref_info" class="tooltip">
@@ -104,7 +90,6 @@
 					<svg id="tooltip_2" width="600" height="400"></svg> 
 					
 				</td>
-				-->
 				<td colspan="2">
 					<table width="100%">
 						<tr>
@@ -131,7 +116,8 @@
 						</tr>
 					</table>
 				</td>
-			</tr>			
+			</tr>	
+			-->		
 		</table>
 		<br/>
 		<br/>

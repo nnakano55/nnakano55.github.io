@@ -16,8 +16,8 @@ var zone = [
 // when the value of the changed 
 function year_changed(value)
 {
-	slider_text.innerHTML = value;
-	draw_map(+value > 2000 ? 2000 : value);
-	draw_slider(+value < 1978 ? 1978 : value);
+	//slider_text.innerHTML = value;
+	draw_map(+value);
+	draw_slider(+value);
 }
 

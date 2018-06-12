@@ -36,21 +36,33 @@ var id_conversion = [
   16, 30, 6, 35, 19
 ];
 
+var order_conversion = [
+  "Hokkaido","Aomori","Iwate","Miyagi","Akita","Yamagata",
+  "Fukushima","Ibaraki","Tochigi","Gunma","Saitama","Chiba",
+  "Tokyo","Kanagawa","Niigata","Toyama","Ishikawa","Fukui",
+  "Yamanashi","Nagano","Gifu","Shizuoka","Aichi","Mie","Shiga","Kyoto",
+  "Osaka","Hyogo","Nara","Wakayama","Tottori","Shimane","Okayama",
+  "Hiroshima","Yamaguchi","Tokushima","Kagawa","Ehime","Kōchi","Fukuoka",
+  "Saga","Nagasaki","Kumamoto","Oita","Miyazaki","Kagoshima","Okinawa"
+];
+
 // scale from blue -> green -> red
 var color_scale = d3.scaleLinear()
     .range(['#fcae91', '#de2d26', '#a50f15']);
 
 //define projection values
 var projection = d3.geoMercator()
-    .scale(850)
+    .scale(1000)
     .rotate([0.0,0.0,0.0])
-    .translate([-1750, 800]);
+    .translate([-2000, 900]);
 
   //define path
 var path = d3.geoPath()
     .projection(projection);
 
 var data;
+
+var year_key;
 
 function declare_map()
 {
@@ -134,15 +146,22 @@ function declare_map()
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
   */
-  d3.csv("src/preprefecture_1960to2000.csv", (e, d) => {
+  d3.csv("src/suicide_rate_prefecture.csv", (e, d) => {
     data = d;       
     console.log(d);
-	var year_data = new Array();
+	   year_key = {};
 
-    data.forEach((d) => {
-      year_data.push(d[1960]);
+    data.forEach((d, i) => {
+      year_key[d.year] = i;
     });
-	
+
+   var year_data = new Array();
+
+   for(var i=0; i < order_conversion.length; i++)
+   {
+      year_data.push(data[year_key[2007]][order_conversion[i]]);
+   }
+   console.log(year_data);
 	 // set up min, pivot, and max
     var min =  d3.min(year_data.map((v) => {
         return parseFloat(v);
@@ -162,6 +181,10 @@ function declare_map()
         mean,
         max   
     ]);
+        //Define Tooltip here
+    var div = d3.select("body").append("div") 
+    .attr("class", "tooltip")       
+    .style("opacity", 0);
 	
 	d3.json("src/japan.json", (e, d) => {// load JSON file
    
@@ -172,20 +195,43 @@ function declare_map()
             .append("path")
             .attr("d", (v)=> {return path(v);}) // send path value to append
             .attr("fill", (v, i) => color_scale(year_data[id_conversion[i] - 1]))
-            .attr("stroke", "#222");
+            .attr("stroke", "#222")
+            .on("mouseover", (d,i)=> {
+                div.transition()    
+                  .duration(100)    
+                  .style("opacity", .9);    
+                div.html(
+                    order_conversion[id_conversion[i] - 1] + " Prefecture<br/>" +
+                    "Suicide rate: " + year_data[id_conversion[i] - 1]
+                  ) 
+                  .style("left", (d3.event.pageX) + "px")   
+                  .style("top", (d3.event.pageY - 28) + "px");  
+            }).on("mouseout", function(d) {   
+                div.transition()    
+                  .duration(250)    
+                  .style("opacity", 0); 
+            });
     });
 	//draw_map(1960);
   });
+
+  viz_1.append("text")
+      .attr("dx", 400)
+      .attr("dy", 450)
+      .attr("text-anchor", "middle")
+      .attr("id","japan_map")
+      .text("Suicide by Prefecture: " + 2007)
 
 }
 
 function draw_map(year)
 {// get CSV data and draw geoJSON
-    var year_data = new Array();
+   var year_data = new Array();
 
-    data.forEach((d) => {
-      year_data.push(d[year]);
-    });
+   for(var i=0; i <= order_conversion.length; i++)
+   {
+      year_data.push(data[year_key[year]][order_conversion[i]]);
+   }
 
 
     // set up min, pivot, and max
@@ -212,6 +258,9 @@ function draw_map(year)
 		.transition().duration(100)             // set how long our transitions take to complete
         .delay(function(d,i) { return 100;})
 		.attr("fill", (d,i) => color_scale(year_data[id_conversion[i] - 1]));
+
+    viz_1.select("text#japan_map")
+    .text("Suicide by Prefecture: " + year);   
    
 }// End draw   
 

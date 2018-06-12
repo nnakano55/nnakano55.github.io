@@ -48,8 +48,8 @@ var xBandScale = d3.scaleBand()         // constructs a null band scale
 var yScale = d3.scaleLinear().range([height, 0]);
 
 // creates a new linear scale with range of [255, 80]
-var colorScale = d3.scaleLinear().rangeRound([255,80]);
-
+var colorScale = d3.scaleLinear()
+    .range(['#fcae91', '#de2d26', '#a50f15']);
 // Define X and Y AXIS
 // Creates an xAxis using the axisBottom function
 var xAxis = d3.axisBottom(xBandScale);  // this axis operates on the xBandScale defined above
@@ -76,42 +76,59 @@ var year, year_array;
 var year_index = 0;
 
 var myData;
+var year_key_reason = {};
+var variables = [
+	"household","health","economy","workplace","relationship","education","other"
+];
+
 
 function declare_bargraph()
 {
-	d3.csv("src/age_group_by_year.csv",function(error, data){
+	d3.csv("src/transpose_reason.csv",function(error, data){
 		var year_array = data.columns.slice(1);
+		console.log(year_array);
 		var years = data.columns.slice(1).map(function(id) {
 			return {
 				id: id,
 				values: data.map(function(d) {
-					return {age: d.age, value:+d[id]}
+					var check = d[id].split("-");
+					return {reason: d.reason, total:+check[0], male:+check[1], female:+check[2]};
 				})
 			};
 		});
 		
+		console.log(years);
+
+		data.forEach((d, i) => {
+			year_key_reason[d.year] = i;
+		});
+
 		myData = data;
+		console.log(data);
 		year = year_array[year_index];
 		
 		// Return X and Y SCALES (domain). See Chapter 7:Scales (Scott M.)
 		// creates an ordinal domain for x-axis
-		xBandScale.domain(data.map(function(d){ return d.age; }));
+		xBandScale.domain(data.map(function(d){ return d.reason; }));
 		
 		// creates a linear domain for y-axis, from 0 to the maximum suicide_rate value in data
 		yScale.domain([0, d3.max(years, function(c) {return d3.max(c.values, 
-																function(d) { return d.value; });})]);
+																function(d) { return d.total; });})]);
 		console.log(data);
 		
 		// color
+		/*
 		colorScale = d3.scaleThreshold()
 					   .range(['#feedde','#fdbe85','#fd8d3c','#e6550d','#a63603']);
+		*/
 		// sets the domain for our color scale in the same way as yScale
 		var color_max = d3.max(years, function(c) {return d3.max(c.values, 
-																function(d) { return d.value; });});
+																function(d) { return d.total; });});
 		var color_min = d3.min(years, function(c) {return d3.min(c.values, 
-																function(d) { return d.value; });});
-		colorScale.domain([ color_min, 2000, 5000, 8000, color_max ]);
-			
+																function(d) { return d.total; });});
+		colorScale.domain([ color_min, color_max ]);
+		
+		console.log(data);	
 		// Creating rectangular bars to represent the data.
 		viz_2.selectAll("rect")                        // select all rectangles in our canvas
 			.data(data)                              // capture the data parsed from our .csv
@@ -120,17 +137,17 @@ function declare_bargraph()
 			.transition().duration(1000)             // set how long our transitions take to complete
 			.delay(function(d,i) { return i * 200;})*/ // begin each transition .2 seconds after the last
 			.attr("x", function(d) {                 // set x coord for each rectangle
-				return xBandScale(d.age);            // map d.age to range specified by xBandScale
+				return xBandScale(d.reason);            // map d.age to range specified by xBandScale
 			})
 			.attr("y", function(d) {                 // set y coord for each rectangle
-				return yScale(d[year]);              // map d.suicide_rate to range specified by yScale
+				return yScale(d[year].split("-")[0]);              // map d.suicide_rate to range specified by yScale
 			})
 			.attr("width", xBandScale.bandwidth())   // set the width of each rectangle
 			.attr("height", function(d) {            // set the height of each rectangle
-				return height - yScale(+d[year]);     // translate height into canvas coordinate system
+				return height - yScale(+d[year].split("-")[0]);     // translate height into canvas coordinate system
 			})
 			.attr("fill", function(d) {     // use colorScale to set each rectangle fill relative to suicide_rate
-				return colorScale(+d[year])
+				return colorScale(+d[year].split("-")[0])
 			});
 
 		// Label the data suicide_rates(d.suicide_rate)
@@ -139,13 +156,13 @@ function declare_bargraph()
 			.enter()
 			.append("text")
 			.text(function(d){
-				return d[year];
+				return d[year].split("-")[0];
 			})
 			.attr("x", function(d){                                     // place each suicide_rate value at regular intervals
-				return xBandScale(d.age)+(xBandScale.bandwidth())/2;    // along the x axis
+				return xBandScale(d.reason)+(xBandScale.bandwidth())/2;    // along the x axis
 			})
 			.attr("y", function(d){                                     // place each suicide_rate value at the top of its
-				return yScale(d[year])+suicideLabelOffsetY;             // corresponding rectangle
+				return yScale(d[year].split("-")[0])+suicideLabelOffsetY;             // corresponding rectangle
 			})
 			.attr("id", "label")
 			.attr("text-anchor", "middle")
@@ -182,6 +199,14 @@ function declare_bargraph()
 			.attr("transform", "rotate(-90)")
 			.attr("text-anchor", "middle")
 			.text("Total Suicides");
+
+		viz_2.append("text")
+			.attr("dx", 300)
+			.attr("dy", 400)
+			.attr("text-anchor", "middle")
+			.attr("id","bar_graph")
+			.text("Suicide by Reason: " + 2007)
+			
 		
 	});
 }
@@ -190,23 +215,22 @@ function draw_slider(year_value)
 {
     //year = this.value.toString();
     year = year_value;
-	console.log(year);
     // update rectangular bars to represent the data.
     viz_2.selectAll("rect")                        // select all rectangles in our canvas
         .transition().duration(100)             // set how long our transitions take to complete
         .delay(function(d,i) { return 100;}) // begin each transition .2 seconds after the last
         .attr("x", function(d) {                 // set x coord for each rectangle
-            return xBandScale(d.age);            // map d.age to range specified by xBandScale
+            return xBandScale(d.reason);            // map d.age to range specified by xBandScale
         })
         .attr("y", function(d) {                 // set y coord for each rectangle
-            return yScale(d[year]);              // map d.suicide_rate to range specified by yScale
+            return yScale(d[year].split("-")[0]);              // map d.suicide_rate to range specified by yScale
         })
         .attr("width", xBandScale.bandwidth())   // set the width of each rectangle
         .attr("height", function(d) {            // set the height of each rectangle
-            return height - yScale(+d[year]);    // translate height into canvas coordinate system
+            return height - yScale(+d[year].split("-")[0]);    // translate height into canvas coordinate system
         })
         .attr("fill", function(d) {     // use colorScale to set each rectangle fill relative to suicide_rate
-            return colorScale(+d[year])
+            return colorScale(+d[year].split("-")[0])
         });
     
     // Label the data
@@ -214,17 +238,20 @@ function draw_slider(year_value)
         .transition().duration(100)             // set how long our transitions take to complete
         .delay(function(d,i) { return 100;}) // begin each transition .2 seconds after the last
         .text(function(d){
-            return d[year];
+            return d[year].split("-")[0];
         })
         .attr("x", function(d){                                    // place each suicide_rate value at regular intervals
-            return xBandScale(d.age)+(xBandScale.bandwidth())/2;   // along the x axis
+            return xBandScale(d.reason)+(xBandScale.bandwidth())/2;   // along the x axis
         })
         .attr("y", function(d){                                    // place each suicide_rate value at the top of its
-            return yScale(d[year])+suicideLabelOffsetY;            // corresponding rectangle
+            return yScale(+d[year].split("-")[0])+suicideLabelOffsetY;            // corresponding rectangle
         })
         .attr("text-anchor", "middle")
         .attr("font-family", "sans-serif")
         .attr("font-size", "11px")
         .attr("fill", "white");
-    
+
+
+ 	viz_2.select("text#bar_graph")
+ 		.text("Suicide by Reason: " + year_value);   
 }
