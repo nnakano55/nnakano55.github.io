@@ -7,7 +7,8 @@ var tooltip_2;
 
 var slider;
 var slider_text;
-
+var gender_index = 0;
+var year = 2007;
 // called when body is loaded 
 function main()
 {	
@@ -22,6 +23,20 @@ function main()
 	slider = document.getElementById("year_slider");
 	slider_text = document.getElementById("year");
 	
+	
+	document.gender_form.gender.forEach((d) => {
+		d.onclick = (val) => {
+			console.log(val);
+			if(val.srcElement.value == "total")
+				gender_index = 0;
+			else if (val.srcElement.value == "male")
+				gender_index = 1;
+			else
+				gender_index = 2;
+			draw_slider(year);
+		};
+	});
+
 	//call creation function 
 	create_tooltip();
 	declare_map();

@@ -72,7 +72,7 @@ the difference between .csv, .tsv and .json files. To import a .tsv or
 // You must provide comments here to demonstrate your understanding of these commands
 // captures the file "suicide_rate2016TrillionUSDollars.csv" as data as an argument to an anonymous function
 
-var year, year_array;
+var year_array;
 var year_index = 0;
 
 var myData;
@@ -80,6 +80,7 @@ var year_key_reason = {};
 var variables = [
 	"household","health","economy","workplace","relationship","education","other"
 ];
+
 
 
 function declare_bargraph()
@@ -140,14 +141,14 @@ function declare_bargraph()
 				return xBandScale(d.reason);            // map d.age to range specified by xBandScale
 			})
 			.attr("y", function(d) {                 // set y coord for each rectangle
-				return yScale(d[year].split("-")[0]);              // map d.suicide_rate to range specified by yScale
+				return yScale(d[year].split("-")[gender_index]);              // map d.suicide_rate to range specified by yScale
 			})
 			.attr("width", xBandScale.bandwidth())   // set the width of each rectangle
 			.attr("height", function(d) {            // set the height of each rectangle
-				return height - yScale(+d[year].split("-")[0]);     // translate height into canvas coordinate system
+				return height - yScale(+d[year].split("-")[gender_index]);     // translate height into canvas coordinate system
 			})
 			.attr("fill", function(d) {     // use colorScale to set each rectangle fill relative to suicide_rate
-				return colorScale(+d[year].split("-")[0])
+				return colorScale(+d[year].split("-")[gender_index])
 			});
 
 		// Label the data suicide_rates(d.suicide_rate)
@@ -156,13 +157,13 @@ function declare_bargraph()
 			.enter()
 			.append("text")
 			.text(function(d){
-				return d[year].split("-")[0];
+				return d[year].split("-")[gender_index];
 			})
 			.attr("x", function(d){                                     // place each suicide_rate value at regular intervals
 				return xBandScale(d.reason)+(xBandScale.bandwidth())/2;    // along the x axis
 			})
 			.attr("y", function(d){                                     // place each suicide_rate value at the top of its
-				return yScale(d[year].split("-")[0])+suicideLabelOffsetY;             // corresponding rectangle
+				return yScale(d[year].split("-")[gender_index])+suicideLabelOffsetY;             // corresponding rectangle
 			})
 			.attr("id", "label")
 			.attr("text-anchor", "middle")
@@ -223,14 +224,14 @@ function draw_slider(year_value)
             return xBandScale(d.reason);            // map d.age to range specified by xBandScale
         })
         .attr("y", function(d) {                 // set y coord for each rectangle
-            return yScale(d[year].split("-")[0]);              // map d.suicide_rate to range specified by yScale
+            return yScale(d[year].split("-")[gender_index]);              // map d.suicide_rate to range specified by yScale
         })
         .attr("width", xBandScale.bandwidth())   // set the width of each rectangle
         .attr("height", function(d) {            // set the height of each rectangle
-            return height - yScale(+d[year].split("-")[0]);    // translate height into canvas coordinate system
+            return height - yScale(+d[year].split("-")[gender_index]);    // translate height into canvas coordinate system
         })
         .attr("fill", function(d) {     // use colorScale to set each rectangle fill relative to suicide_rate
-            return colorScale(+d[year].split("-")[0])
+            return colorScale(+d[year].split("-")[gender_index])
         });
     
     // Label the data
@@ -238,13 +239,13 @@ function draw_slider(year_value)
         .transition().duration(100)             // set how long our transitions take to complete
         .delay(function(d,i) { return 100;}) // begin each transition .2 seconds after the last
         .text(function(d){
-            return d[year].split("-")[0];
+            return d[year].split("-")[gender_index];
         })
         .attr("x", function(d){                                    // place each suicide_rate value at regular intervals
             return xBandScale(d.reason)+(xBandScale.bandwidth())/2;   // along the x axis
         })
         .attr("y", function(d){                                    // place each suicide_rate value at the top of its
-            return yScale(+d[year].split("-")[0])+suicideLabelOffsetY;            // corresponding rectangle
+            return yScale(+d[year].split("-")[gender_index])+suicideLabelOffsetY;            // corresponding rectangle
         })
         .attr("text-anchor", "middle")
         .attr("font-family", "sans-serif")
@@ -255,3 +256,4 @@ function draw_slider(year_value)
  	viz_2.select("text#bar_graph")
  		.text("Suicide by Reason: " + year_value);   
 }
+
