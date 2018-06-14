@@ -25,6 +25,8 @@ function main()
 	
 	
 	document.gender_form.gender.forEach((d) => {
+        var min = document.getElementById("price-min").value;
+        var max = document.getElementById("price-max").value;
 		d.onclick = (val) => {
 			console.log(val);
 			if(val.srcElement.value == "total")
@@ -33,7 +35,7 @@ function main()
 				gender_index = 1;
 			else
 				gender_index = 2;
-			draw_slider(year);
+			draw_slider(+min, +max);
 		};
 	});
 

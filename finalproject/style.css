@@ -17,9 +17,19 @@ div.tooltip{
 	margin-right: 30px;
 }
 
+
+#not_slider{
+    
+}
+
 div#legend1{
 	text-align:left;
 	padding-left:10px;
+}
+
+#gender_form{
+    padding-top: 10px;
+    width: 20%;
 }
 
 table#maintable th, td{

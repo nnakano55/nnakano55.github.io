@@ -46,9 +46,15 @@ var order_conversion = [
   "Saga","Nagasaki","Kumamoto","Oita","Miyazaki","Kagoshima","Okinawa"
 ];
 
+
+var ordinal = d3.scaleOrdinal()
+  .domain(["0 Suicides Per 100,000 People", "15 Suicides Per 100,000 People", "20 Suicides Per 100,000 People", "25 Suicides Per 100,000 People", "30 Suicides Per 100,000 People"])
+  .range([ "rgb(254,229,217)", "rgb(252,174,145)", "rgb(251,106,74)", "rgb(222,45,38)", "rgb(165,15,21)"]);
+
 // scale from blue -> green -> red
 var color_scale = d3.scaleLinear()
-    .range(['#fcae91', '#de2d26', '#a50f15']);
+    .domain([0.0, 15.0, 20.0, 25.0, 30.0])
+    .range([ "rgb(254,229,217)", "rgb(252,174,145)", "rgb(251,106,74)", "rgb(222,45,38)", "rgb(165,15,21)"]);
 
 //define projection values
 var projection = d3.geoMercator()
@@ -64,88 +70,33 @@ var data;
 
 var year_key;
 
+var year_data;
+
 function declare_map()
 {
   var w = 300, h = 50;
 
-  var key = d3.select("#legend1")
-    .append("svg")
-    .attr("width", w)
-    .attr("height", h);
+var svg = d3.select("svg");
 
-  var legend = key.append("defs")
-    .append("svg:linearGradient")
-    .attr("id", "gradient")
-    .attr("x1", "0%")
-    .attr("y1", "100%")
-    .attr("x2", "100%")
-    .attr("y2", "100%")
-    .attr("spreadMethod", "pad");
+svg.append("g")
+  .attr("class", "legendOrdinal")
+  .attr("transform", "translate(20,20)");
 
-  legend.append("stop")
-    .attr("offset", "0%")
-    .attr("stop-color", "#fee5d9")
-    .attr("stop-opacity", 1);
+var legendOrdinal = d3.legendColor()
+  .shape("path", d3.symbol().type(d3.symbolSquare).size(800)())
+  .shapePadding(10)
+  .scale(ordinal);
+
+svg.select(".legendOrdinal")
+  .call(legendOrdinal);
+          
     
-  legend.append("stop")
-    .attr("offset", "25%")
-    .attr("stop-color", "#fcae91")
-    .attr("stop-opacity", 1);
-
-  legend.append("stop")
-    .attr("offset", "50%")
-    .attr("stop-color", "#fb6a4a")
-    .attr("stop-opacity", 1);
-
-  legend.append("stop")
-    .attr("offset", "75%")
-    .attr("stop-color", "#de2d26")
-    .attr("stop-opacity", 1);
-
-  legend.append("stop")
-    .attr("offset", "100%")
-    .attr("stop-color", "#a50f15")
-    .attr("stop-opacity", 1);
-
-  key.append("rect")
-    .attr("width", w)
-    .attr("height", h - 30)
-    .style("fill", "url(#gradient)")
-    .attr("transform", "translate(0,10)");
-
-  var y = d3.scaleLinear()
-    .range([300, 0])
-    .domain([68, 12]);
-
-  var yAxis = d3.axisBottom()
-    .scale(y)
-    .ticks(5);
-
-  key.append("g")
-    .attr("class", "y axis")
-    .attr("transform", "translate(0,30)")
-    .call(yAxis)
-    .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    .text("axis title");
-
   //Define Margin
   var margin = {left: 80, right: 80, top: 50, bottom: 50 },
       width = 960 - margin.left -margin.right,
       height = 960 - margin.top - margin.bottom;
 
-
-  /*
-  d3.select("body")
-      .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-  */
+    
   d3.csv("src/suicide_rate_prefecture.csv", (e, d) => {
     data = d;       
     console.log(d);
@@ -155,12 +106,20 @@ function declare_map()
       year_key[d.year] = i;
     });
 
-   var year_data = new Array();
+   year_data = new Array();
+      
+    for(var i = 0; i < order_conversion.length; i++)
+    {
+        var temp = 0;
+        for(var j = 2007; j < 2018; j++)
+        {
+            temp = parseFloat(data[year_key[j]][order_conversion[i]]) + parseFloat(temp);
+        }
+        temp = (temp/11);
+        year_data.push(temp);
+    }
 
-   for(var i=0; i < order_conversion.length; i++)
-   {
-      year_data.push(data[year_key[2007]][order_conversion[i]]);
-   }
+      
    console.log(year_data);
 	 // set up min, pivot, and max
     var min =  d3.min(year_data.map((v) => {
@@ -176,11 +135,13 @@ function declare_map()
     }));
    
     // set color scale domain
+      /*
     color_scale.domain([
         min,
         mean,
         max   
     ]);
+    */
         //Define Tooltip here
     var div = d3.select("body").append("div") 
     .attr("class", "tooltip")       
@@ -202,7 +163,7 @@ function declare_map()
                   .style("opacity", .9);    
                 div.html(
                     order_conversion[id_conversion[i] - 1] + " Prefecture<br/>" +
-                    "Suicide rate: " + year_data[id_conversion[i] - 1]
+                    "Suicide rate: " + Math.round(year_data[id_conversion[i] - 1] * 10)/10
                   ) 
                   .style("left", (d3.event.pageX) + "px")   
                   .style("top", (d3.event.pageY - 28) + "px");  
@@ -220,47 +181,46 @@ function declare_map()
       .attr("dy", 450)
       .attr("text-anchor", "middle")
       .attr("id","japan_map")
-      .text("Suicide by Prefecture: " + 2007)
+      .text("Suicides by Prefecture: " + "2007-2017")
 
 }
 
-function draw_map(year)
+function draw_map(year, max)
 {// get CSV data and draw geoJSON
-   var year_data = new Array();
+   year_data = new Array();
 
-   for(var i=0; i <= order_conversion.length; i++)
-   {
-      year_data.push(data[year_key[year]][order_conversion[i]]);
-   }
-
-
-    // set up min, pivot, and max
-    var min =  d3.min(year_data.map((v) => {
-        return parseFloat(v);
-    }));
-   
-    var mean = d3.mean(year_data.map((v) => {
-        return parseFloat(v);
-    }));
-   
-    var max = d3.max(year_data.map((v) => {
-        return parseFloat(v);
-    }));
-   
-    // set color scale domain
-    color_scale.domain([
-        min,
-        mean,
-        max   
-    ]);
-	
+    if (year == max)
+    {
+        var temp = 0;
+        for(var i = 0; i < order_conversion.length; i++)
+        {
+            temp = parseFloat(data[year_key[year]][order_conversion[i]]) + parseFloat(temp);
+        }  
+          year_data.push(temp);  
+            
+    }
+    else 
+        {
+    for(var i = 0; i < order_conversion.length; i++)
+    {
+        var temp = 0;
+        console.log(max);
+        for(var j = year; j < parseFloat(max); j++)
+        {
+            temp = parseFloat(data[year_key[j]][order_conversion[i]]) + parseFloat(temp);
+        }
+        console.log(temp);
+        temp = (temp/(max - year));
+        year_data.push(temp);
+    }
+        }
 	viz_1.selectAll("path")
 		.transition().duration(100)             // set how long our transitions take to complete
         .delay(function(d,i) { return 100;})
 		.attr("fill", (d,i) => color_scale(year_data[id_conversion[i] - 1]));
 
     viz_1.select("text#japan_map")
-    .text("Suicide by Prefecture: " + year);   
+    .text("Suicides by Prefecture: " + year + "-" +max);   
    
 }// End draw   
 
