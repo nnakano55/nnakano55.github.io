@@ -25,10 +25,11 @@ function main()
 	
 	
 	document.gender_form.gender.forEach((d) => {
-        var min = document.getElementById("price-min").value;
-        var max = document.getElementById("price-max").value;
+       
 		d.onclick = (val) => {
 			console.log(val);
+			var min = document.getElementById("price-min").value;
+        	var max = document.getElementById("price-max").value;
 			if(val.srcElement.value == "total")
 				gender_index = 0;
 			else if (val.srcElement.value == "male")
