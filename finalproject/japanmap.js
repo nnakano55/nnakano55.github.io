@@ -181,7 +181,7 @@ svg.select(".legendOrdinal")
       .attr("dy", 450)
       .attr("text-anchor", "middle")
       .attr("id","japan_map")
-      .text("Suicides by Prefecture: " + "2007-2017")
+      .text("Suicides by Prefecture: " + "2007 to 2017")
 
 }
 
@@ -220,7 +220,7 @@ function draw_map(year, max)
 		.attr("fill", (d,i) => color_scale(year_data[id_conversion[i] - 1]));
 
     viz_1.select("text#japan_map")
-    .text("Suicides by Prefecture: " + year + "-" +max);   
+    .text("Suicides by Prefecture: " + year + " to " +max);   
    
 }// End draw   
 
