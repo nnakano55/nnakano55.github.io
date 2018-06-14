@@ -87,7 +87,7 @@ function declare_bargraph()
 {
 	d3.csv("src/transpose_reason.csv",function(error, data){
 		var year_array = data.columns.slice(1);
-		console.log(year_array);
+		//console.log(year_array);
 		var years = data.columns.slice(1).map(function(id) {
 			return {
 				id: id,
@@ -98,24 +98,32 @@ function declare_bargraph()
 			};
 		});
 		
-		console.log(years);
+		//console.log("years: " + years);
 
 		data.forEach((d, i) => {
 			year_key_reason[d.year] = i;
 		});
 
 		myData = data;
-		console.log(data);
+		//console.log(data);
 		year = year_array[year_index];
 		
 		// Return X and Y SCALES (domain). See Chapter 7:Scales (Scott M.)
 		// creates an ordinal domain for x-axis
 		xBandScale.domain(data.map(function(d){ return d.reason; }));
 		
+        var range_totals = new Array();
+        for( var i = 0; i < 7; i++){
+            var add = 0;
+            for( var j = 2007; j <= 2017; j++){
+                add += years[j-2007].values[i].total;
+            }
+            range_totals.push(add);
+        }        
 		// creates a linear domain for y-axis, from 0 to the maximum suicide_rate value in data
-		yScale.domain([0, d3.max(years, function(c) {return d3.max(c.values, 
-																function(d) { return d.total; });})]);
-		console.log(data);
+		yScale.domain([0, d3.max(range_totals)]);
+        
+		//console.log(data);
 		
 		// color
 		/*
@@ -129,7 +137,7 @@ function declare_bargraph()
 																function(d) { return d.total; });});
 		colorScale.domain([ color_min, color_max ]);
 		
-		console.log(data);	
+		//console.log(data);	
 		// Creating rectangular bars to represent the data.
 		viz_2.selectAll("rect")                        // select all rectangles in our canvas
 			.data(data)                              // capture the data parsed from our .csv
@@ -212,32 +220,39 @@ function declare_bargraph()
 	});
 }
 
-function draw_slider(year_value)
+var total;
+
+function draw_slider(year_min, year_max)
 {
     //year = this.value.toString();
-    year = year_value;
+    year = year_min;
+    //total = 0;
+    
     // update rectangular bars to represent the data.
-    viz_2.selectAll("rect")                        // select all rectangles in our canvas
-        .transition().duration(100)             // set how long our transitions take to complete
-        .delay(function(d,i) { return 100;}) // begin each transition .2 seconds after the last
+    viz_2.selectAll("rect")                      // select all rectangles in our canvas
+        .transition().duration(100)              // set how long our transitions take to complete
+        .delay(function(d,i) { return 100;})     // begin each transition .2 seconds after the last
         .attr("x", function(d) {                 // set x coord for each rectangle
-            return xBandScale(d.reason);            // map d.age to range specified by xBandScale
+            return xBandScale(d.reason);         // map d.age to range specified by xBandScale
         })
         .attr("y", function(d) {                 // set y coord for each rectangle
-            return yScale(d[year].split("-")[gender_index]);              // map d.suicide_rate to range specified by yScale
+            total = reason_total(d, year_min, year_max);
+            console.log("total:" + total);
+            return yScale(total);    // map d.suicide_rate to range specified by yScale
         })
         .attr("width", xBandScale.bandwidth())   // set the width of each rectangle
         .attr("height", function(d) {            // set the height of each rectangle
-            return height - yScale(+d[year].split("-")[gender_index]);    // translate height into canvas coordinate system
+            total = reason_total(d, year_min, year_max);
+            return height - yScale(total);    // translate height into canvas coordinate system
         })
         .attr("fill", function(d) {     // use colorScale to set each rectangle fill relative to suicide_rate
-            return colorScale(+d[year].split("-")[gender_index])
+            return colorScale(total)
         });
     
     // Label the data
     viz_2.selectAll("#label")
         .transition().duration(100)             // set how long our transitions take to complete
-        .delay(function(d,i) { return 100;}) // begin each transition .2 seconds after the last
+        .delay(function(d,i) { return 100;})    // begin each transition .2 seconds after the last
         .text(function(d){
             return d[year].split("-")[gender_index];
         })
@@ -254,6 +269,13 @@ function draw_slider(year_value)
 
 
  	viz_2.select("text#bar_graph")
- 		.text("Suicide by Reason: " + year_value);   
+ 		.text("Suicide by Reason: " + year_min);   
 }
 
+function reason_total(d, year_min, year_max){
+    var my_total = 0;
+    for( var i = year_min; i <= year_max; i++){
+        my_total += +d[i].split("-")[gender_index];
+    }
+    return my_total;
+}

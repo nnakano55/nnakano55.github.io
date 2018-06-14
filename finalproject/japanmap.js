@@ -148,7 +148,7 @@ function declare_map()
   */
   d3.csv("src/suicide_rate_prefecture.csv", (e, d) => {
     data = d;       
-    console.log(d);
+    //console.log(d);
 	   year_key = {};
 
     data.forEach((d, i) => {
@@ -161,7 +161,7 @@ function declare_map()
    {
       year_data.push(data[year_key[2007]][order_conversion[i]]);
    }
-   console.log(year_data);
+   //console.log(year_data);
 	 // set up min, pivot, and max
     var min =  d3.min(year_data.map((v) => {
         return parseFloat(v);

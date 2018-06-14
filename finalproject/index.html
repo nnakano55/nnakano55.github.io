@@ -13,6 +13,9 @@
 		<script type="text/javascript" src="tooltip.js"></script>
 		<script type="text/javascript" src="japanmap.js"></script>
 		<script type="text/javascript" src="bar_graph.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	</head>
 
 	<body onload="main()">
@@ -37,13 +40,14 @@
 				<td colspan="2">
 					<!-- Custom Slider: https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
 					<div class='center'>
-						<table id="inner_table">
-							<tr>
-							<td align="right">2007</td>
-							<td width="100%"><input type="range" id="year_slider" min="2007" max="2017" value="50" class="slider" step="1" oninput="year_changed(this.value)"></td>
-							<td align="left">2017</td>
-							</tr>
-						</table>
+						<form method="post" action="/action_page_post.php">
+                            <div data-role="rangeslider">
+                                <label for="price-min">Price:</label>
+                                <input type="range" name="price-min" id="price-min" value="2007" min="2007" max="2017" onchange="year_changed()">
+                                <label for="price-max">Price:</label>
+                                <input type="range" name="price-max" id="price-max" value="2017" min="2007" max="2017" onchange="year_changed()">
+                            </div>
+                        </form>
 					</div>
 				</td>
 			</tr>

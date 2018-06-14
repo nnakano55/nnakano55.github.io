@@ -14,10 +14,13 @@ var zone = [
 ];
 
 // when the value of the changed 
-function year_changed(value)
+function year_changed()
 {
-	//slider_text.innerHTML = value;
-	draw_map(+value);
-	draw_slider(+value);
+    var min = document.getElementById("price-min").value;
+    var max = document.getElementById("price-max").value;
+
+	//slider_text.innerHTML = min;
+	draw_map(+min);
+	draw_slider(+min, +max);
 }
 
