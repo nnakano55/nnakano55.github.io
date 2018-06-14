@@ -16,20 +16,6 @@ var margin = {top: 10, right: 40, bottom: 150, left: 100},
     width = 760 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-
-// Define SVG. "g" means group SVG elements together.
-// This creates an svg object by selecting the html body element, appending
-// a new element of type SVG to the HTML DOM, then sets dimensional attributes
-// for that element before grouping SVG elements together and transforming them
-// to treat the HTML5 Canvas origin as the SVG origin.
-/*
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)  // define width attributes based on margin object fields
-    .attr("height", height + margin.top + margin.bottom)// define height attributes based on margin object fields
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-*/
-
 /* --------------------------------------------------------------------
 SCALE and AXIS are two different methods of D3. See D3 API Refrence and
 look up SVG AXIS and SCALES. See D3 API Reference to understand the
@@ -48,8 +34,8 @@ var xBandScale = d3.scaleBand()         // constructs a null band scale
 var yScale = d3.scaleLinear().range([height, 0]);
 
 // creates a new linear scale with range of [255, 80]
-var colorScale = d3.scaleLinear()
-    .range(['#fcae91', '#de2d26', '#a50f15']);
+var colorScale = d3.scaleThreshold()
+                   .range(['#fee5d9','#fcae91','#fb6a4a','#de2d26','#a50f15']);
 // Define X and Y AXIS
 // Creates an xAxis using the axisBottom function
 var xAxis = d3.axisBottom(xBandScale);  // this axis operates on the xBandScale defined above
@@ -58,7 +44,7 @@ var xAxis = d3.axisBottom(xBandScale);  // this axis operates on the xBandScale 
 // Define tick marks on the y-axis as shown on the output with an interval of 5 and $ sign
 var yAxis = d3.axisLeft(yScale).ticks(5).tickFormat( function(d) { return d });
 
-var suicideLabelOffsetY = 12;
+var suicideLabelOffsetY = -3;
 var suicideLabelOffsetX = 30;
 
 /* --------------------------------------------------------------------
@@ -77,9 +63,7 @@ var year_index = 0;
 
 var myData;
 var year_key_reason = {};
-var variables = [
-	"household","health","economy","workplace","relationship","education","other"
-];
+var variables = ["household","health","economy","workplace","relationship","education","other"];
 
 
 
@@ -120,18 +104,11 @@ function declare_bargraph()
         }        
 		// creates a linear domain for y-axis, from 0 to the maximum suicide_rate value in data
 		yScale.domain([0, d3.max(range_totals)]);
-        
-		//console.log(data);
-		
-		// color
-		/*
-		colorScale = d3.scaleThreshold()
-					   .range(['#feedde','#fdbe85','#fd8d3c','#e6550d','#a63603']);
-		*/
+        		
 		// sets the domain for our color scale in the same way as yScale
 		var color_max = d3.max(range_totals);
 		var color_min = d3.min(range_totals);
-		colorScale.domain([ color_min, color_max ]);
+		colorScale.domain([ color_min, 10000, 20000, 70000, color_max ]);
 		
 		//console.log(data);	
 		// Creating rectangular bars to represent the data.
@@ -173,14 +150,16 @@ function declare_bargraph()
                 total = reason_total(d, 2007, 2017);
 				return yScale(total) + suicideLabelOffsetY;             // corresponding rectangle
 			})
-			.attr("id", "label")
+            .attr("id", "label")
+            .attr("color", "black")
 			.attr("text-anchor", "middle")
 			.attr("font-family", "sans-serif")
 			.attr("font-size", "11px")
-			.attr("fill", "white");
+            .attr("font-weight", "bold")
+			.attr("fill", "black");
 
 		// Draw xAxis and position the label at -60 degrees as shown on the output
-		viz_2.append("g")                         // select an uninitialized svg element "g"
+		viz_2.append("g")                       // select an uninitialized svg element "g"
 			.attr("class", "x axis")            // set g's class attribute
 			.attr("transform", "translate(0," + height + ")")   //translate g
 			.call(xAxis)                        // call our xAxis function (the svg to append)
@@ -213,7 +192,7 @@ function declare_bargraph()
 			.attr("dy", 400)
 			.attr("text-anchor", "middle")
 			.attr("id","bar_graph")
-			.text("Suicide by Reason: " + 2007)
+			.text("Suicide by Reason: " + 2007 + " to " + 2017)
 			
 		
 	});
@@ -259,13 +238,13 @@ function draw_slider(year_min, year_max)
             return xBandScale(d.reason)+(xBandScale.bandwidth())/2;   // along the x axis
         })
         .attr("y", function(d){                             // place each suicide_rate value at the top of its
-            total = reason_total(d, year_min, year_max);
-            return yScale(total)+suicideLabelOffsetY;       // corresponding rectangle
+            total = reason_total(d, year_min, year_max);    // corresponding rectangle
+            return yScale(total)+suicideLabelOffsetY;
         })
         .attr("text-anchor", "middle")
         .attr("font-family", "sans-serif")
         .attr("font-size", "11px")
-        .attr("fill", "white");
+        .attr("fill", "black");
 
 
  	viz_2.select("text#bar_graph")
