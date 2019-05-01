@@ -10,8 +10,8 @@ div.center{
 
 div.text{
 	margin:auto;
-	max-width: 50vw;
-    font-size: 1vw;
+	max-width: 50%;
+    font-size: 16px;
 }
 
 div.tooltip{
@@ -107,4 +107,8 @@ div.tooltip {
     border: 0px;		
     border-radius: 8px;			
     pointer-events: none;			
+}
+
+.left{
+
 }
