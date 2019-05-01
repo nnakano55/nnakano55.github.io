@@ -24,10 +24,10 @@ span a img {
 
 span#side_menu_button{
 	background-color:#ccc;
-	padding-top: 0px;
+	padding-top: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
-	padding-bottom: 5px;
+	padding-bottom: 10px;
 }
 
 span#side_menu_button:hover{
@@ -36,12 +36,13 @@ span#side_menu_button:hover{
 
 div#top_nav {
 	background: #ccc;
-	padding: 0px;
+	padding-top: 10px;
 	text-align: left;
 	width: 100%;
-	min-height: 44px;
+	min-height: 30px;
 	overflow: hidden;
 	position: fixed;
+
 	top: 0;
 	width: 100%;
 }
@@ -52,7 +53,9 @@ nav#main_nav {
 	flex:1;
 	background: #ccc;
 	padding: 20px;
+	height: 100%;
 }
+
 
 nav#main_nav ul {
 	list-style-type: none;
@@ -65,6 +68,10 @@ article{
 	flex: 3;
 	padding: 20px;
 	background-color: #f1f1f1;
+}
+
+div#menu_part{
+	width:20%;
 }
 
 footer{
