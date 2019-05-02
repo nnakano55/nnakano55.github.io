@@ -8,17 +8,23 @@ body{
 }
 
 header{
-	background-color: #18121E;
+	background-image: url("bg-2-full.jpg");
+	background-attachment: fixed;
 	text-align: center;
 	font-size:35px;
 	color: #FFFFFF;
+	padding-top:100px;
+	padding-bottom: 100px;
+}
+
+header p{
+	font-style: italic;
+	font-size: 15px;
 }
 
 section{
 	display: -webkit-flex;
 	display: flex;
-	
-	
 }
 
 nav a{
@@ -38,7 +44,7 @@ span#side_menu_button:hover{
 }
 */
 div#top_nav_container {
-	background: #233237;
+	background: #AAAAAA;
 	text-align: left;
 	width: 100%;
 	overflow: hidden;
@@ -70,16 +76,19 @@ nav#main_nav ul {
 }
 
 div.block{
-	background-color: #984B43;
+	background: rgba(50,50,50,0.75);
 	padding: 40px;
 	margin-bottom: 50px;
+	margin-left:auto;
+	margin-right:auto;
 	display:flex;
 	word-wrap: break-word;
+	//max-width: 1000px;
 }
 
 div.flex{
 	width:100%;
-
+	opacity:1;
 }
 
 article{
@@ -88,7 +97,7 @@ article{
 	flex: 3;
 	padding: 20px;
 	//background-color: #f1f1f1;
-	background-color:#EAC67A;
+	background-color:#EEEEEE;
 }
 
 img#noriaki{
@@ -106,7 +115,7 @@ div#menu_part{
 
 
 footer{
-	background-color:#777;
+	background-color: #233237;
 	padding: 10px;
 	text-align: center;
 	color: white;
