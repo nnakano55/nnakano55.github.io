@@ -5,6 +5,8 @@
 body{
 	font-family: Arial, Helvetica, sans-serif;
 	margin: 0px;
+	background-image: url("bg-2-full.jpg");
+	background-attachment: fixed;
 }
 
 header{
@@ -83,12 +85,14 @@ div.block{
 	margin-right:auto;
 	display:flex;
 	word-wrap: break-word;
-	//max-width: 1000px;
 }
 
 div.flex{
 	width:100%;
 	opacity:1;
+	margin-top:auto;
+	margin-bottom:auto;
+	text-align:center;
 }
 
 article{
@@ -97,7 +101,7 @@ article{
 	flex: 3;
 	padding: 20px;
 	//background-color: #f1f1f1;
-	background-color:#EEEEEE;
+	background:rgba(255,255,255, 0.7);
 }
 
 img#noriaki{
