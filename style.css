@@ -5,8 +5,8 @@
 body{
 	font-family: Arial, Helvetica, sans-serif;
 	margin: 0px;
-	background-image: url("bg-2-full.jpg");
-	background-attachment: fixed;
+	//background-image: url("bg-2-full.jpg");
+	//background-attachment: fixed;
 }
 
 header{
@@ -15,8 +15,9 @@ header{
 	text-align: center;
 	font-size:35px;
 	color: #FFFFFF;
-	padding-top:100px;
+	padding-top: 100px;
 	padding-bottom: 100px;
+	width:100%;
 }
 
 header p{
@@ -47,7 +48,7 @@ span#side_menu_button:hover{
 */
 div#top_nav_container {
 	background: #AAAAAA;
-	text-align: left;
+	text-align: center;
 	width: 100%;
 	overflow: hidden;
 	min-height: 30px;
@@ -71,20 +72,46 @@ nav#main_nav {
 	height: 100%;
 }
 
+div.text_align{
+	text-align: center;
+}
 
 nav#main_nav ul {
 	list-style-type: none;
 	padding: 0;
 }
 
-div.block{
-	background: rgba(50,50,50,0.75);
-	padding: 40px;
-	margin-bottom: 50px;
+div.block_flex{
+	background: #EEEEEE;
 	margin-left:auto;
 	margin-right:auto;
 	display:flex;
 	word-wrap: break-word;
+	max-width: 1000px;
+}
+
+div.padding{
+	padding: 40px;
+}
+
+div.margin{
+	margin-top:25px;
+	margin-bottom: 25px;
+}
+
+div.block{
+	background: #EEEEEE;
+	padding: 40px;
+	margin-left:auto;
+	margin-right:auto;
+	word-wrap: break-word;
+	max-width: 1000px;
+}
+
+div.side_text{
+	max-width:400px;
+	margin-left:10px;
+	margin-right:10px;
 }
 
 div.flex{
@@ -92,7 +119,7 @@ div.flex{
 	opacity:1;
 	margin-top:auto;
 	margin-bottom:auto;
-	text-align:center;
+	//text-align:center;
 }
 
 article{
@@ -100,12 +127,22 @@ article{
 	-ms-flex: 3;
 	flex: 3;
 	padding: 20px;
+	width:100%;
 	//background-color: #f1f1f1;
-	background:rgba(255,255,255, 0.7);
+	background:#233237;
 }
 
 img#noriaki{
-	width: 30vw;
+	width: 300px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:auto;
+	margin-bottom:auto;
+	display: block;
+}
+
+img#data_viz{
+	width: 100%;
 	margin-left:auto;
 	margin-right:auto;
 	margin-top:auto;
@@ -124,15 +161,12 @@ footer{
 	text-align: center;
 	color: white;
 }
+
 /*
 @media (max-width: 1000px) {
 	section {
 		-webkit-flex-direction: column;
 		flex-direction: column;
-	}
-
-	nav#main_nav {
-		display: none;
 	}
 }
 
@@ -143,3 +177,14 @@ footer{
 }
 */
 
+@media (max-width: 600px){
+	img#noriaki{
+		width:200px;
+	}
+
+	div.block_flex{
+		-webkit-flex-direction: column;
+		flex-direction: column;
+	}
+
+}

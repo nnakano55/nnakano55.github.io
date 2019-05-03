@@ -15,20 +15,21 @@
     
 	<body>
         
-        <div>
 		<header style="overflow: hidden">
             <h1>Noriaki Nakano</h1>
             <p>Welcome to my website</p>
         </header>
+        
         <div id="top_nav_container">
             <nav id="top_nav">
-                <a href="#block_0"><font color="#FFFFFF">About</font></a>
-                <a href="#block_1"><font color="#FFFFFF">Article2</font></a>
-                <a href="#block_2"><font color="#FFFFFF">Article2</font></a>
-                <a href="#block_3"><font color="#FFFFFF">Article2</font></a>
-                <a href="#block_4"><font color="#FFFFFF">Article2</font></a>
+                <a href="#about"><font color="#FFFFFF">About</font></a>
+                <a href="#data_visualization"><font color="#FFFFFF">Data Visualization</font></a>
+                <a href="#block_2"><font color="#FFFFFF">Mobile App</font></a>
+                <a href="#block_3"><font color="#FFFFFF">Everybody's Sad</font></a>
+                <a href="#block_4"><font color="#FFFFFF">Resources</font></a>
             </nav>
-        </div>  
+        </div>
+
         <section>
             <!--
             <div id="menu_part">
@@ -42,15 +43,14 @@
             </div>
             -->
             <article>
-                <div class="block" id="block_0">
+                <div class="block_flex margin padding" id="about">
 
                     <div class="flex">
-                        <font color="#FFFFFF">
+                        <font>
                             <p style="font-size:25px;"><b>About Me:</b></p>
                             <p style="font-size:20px;"><b>Noriaki Nakano</b></p>
                             <p>B.S. Computer Science: Computer Game Design, December 2018</p>
                             <p>University of California, Santa Cruz</p>
-
                         </font>
                     </div>
                     
@@ -58,19 +58,67 @@
                         <img id="noriaki" src="pic_crop.jpg"/>
                     </div>
                 </div>
-                <div class="block" id="block_1">
+                <div class="block margin padding" id="data_visualization">
+
+                    <div class="flex">
+                        <img id="data_viz" src="data_viz.png" />
+                    </div>     
+
+                    <div class="flex text_align">
+                        <font>
+                            <p style="font-size:25px;"><b>Data Visualization Project "Suicide in Japan: Why?"</b></p>
+                        </font>
+                    </div>
+
+                    <div class="block_flex">
+                        <div class="side_text">
+                            <font>
+                                <p>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    This is a data visualization project that I made with two other teammates.
+                                    The project focuses on the suicide problem of Japan and visualize the data
+                                    in a map and a graph in order to find correlations. The user will use the double
+                                    slider to determine the years that the visualization will use for its data.<br/>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    We used <a href="https://d3js.org/">D3.js</a> to create the visualizations.
+                                    We used the D3 library to create a geomap of Japan and a bar graph. The Map 
+                                    of Japan is divided by prefecture(47 in total) and each prefecture is colored 
+                                    in by the average data of the years determined by the double slider. The Graphic 
+                                    is also colored, but more importantly divided up by the reason why the person committed
+                                    suicide.
+                                </p>
+                            </font>
+                        </div>
+                        <div class="side_text">
+                            <font>
+                                <p>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    I was the project lead for this project. I was in charge of dividing up the work with
+                                    my teammates, collecting the data, and making sure that the code they wrote works with 
+                                    other parts of the project. <br/>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    Looking back at the project, there are definitely things I could of done better. Like 
+                                    for example I formatted the page using a giant table. If I were to go back and redesign the 
+                                    page I would definitely do that and make sure the page works with smaller window sizes. There are
+                                    other things I would change, but overall I am proud of this project and I am glad that my teammates and
+                                    I decided to go with it.<br/><br/>
+                                    <b>Link:</b> <a href="/finalproject">Suicide in Japan: Why?</a>
+                                </p>
+                            </font>
+                        </div>
+                    </div>
+                    
+                    
+                </div> 
+                <div class="block margin padding" id="block_2">
                     <h1>Article 1</h1>
                     <p>something</p>     
                 </div> 
-                <div class="block" id="block_2">
+                <div class="block margin padding" id="block_3">
                     <h1>Article 1</h1>
                     <p>something</p>     
                 </div> 
-                <div class="block" id="block_3">
-                    <h1>Article 1</h1>
-                    <p>something</p>     
-                </div> 
-                <div class="block" id="block_4">
+                <div class="block margin padding" id="block_4">
                     <h1>Article 1</h1>
                     <p>somethinglinked</p>     
                 </div> 
@@ -83,7 +131,7 @@
         <footer>
             <p>footer</p>
         </footer>
-        </div>
+        
 
 	</body>
 </html>
