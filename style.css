@@ -150,6 +150,33 @@ img#data_viz{
 	display: block;
 }
 
+img#brand_recog{
+	width : 100%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:auto;
+	margin-bottom:auto;
+	display: block;
+}
+
+img#everybody_sad_0{
+	width: 100%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:auto;
+	margin-bottom:auto;
+	display: block;
+}
+
+img#everybody_sad_1{
+	width: 100%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:auto;
+	margin-bottom:auto;
+	display: block;
+}
+
 div#menu_part{
 	width:20%;
 }
