@@ -15,8 +15,8 @@ header{
 	text-align: center;
 	font-size:35px;
 	color: #FFFFFF;
-	padding-top: 100px;
-	padding-bottom: 100px;
+	padding-top: 10%;
+	padding-bottom: 10%;
 	width:100%;
 }
 
@@ -28,6 +28,18 @@ header p{
 section{
 	display: -webkit-flex;
 	display: flex;
+	//max-width: 400px;
+}
+
+article{
+	-webkit-flex: 3;
+	-ms-flex: 3;
+	flex: 3;
+	padding-left: 2%;
+	padding-right: 2%;
+	width:100%;
+	//background-color: #f1f1f1;
+	background:#233237;
 }
 
 nav a{
@@ -81,8 +93,34 @@ nav#main_nav ul {
 	padding: 0;
 }
 
+
+div.padding{
+	padding: 5%;
+}
+
+div.
+
+div.margin{
+	margin-top:5%;
+	margin-bottom: 5%;
+}
+
+div.block{
+	background: #EEEEEE;
+	padding: 2%;
+	margin-top:3%;
+	margin-bottom:3%;
+	margin-left:auto;
+	margin-right:auto;
+	word-wrap: break-word;
+	max-width: 1000px;
+}
+
 div.block_flex{
 	background: #EEEEEE;
+	padding: 2%;
+	margin-top:3%;
+	margin-bottom:3%;
 	margin-left:auto;
 	margin-right:auto;
 	display:flex;
@@ -90,28 +128,11 @@ div.block_flex{
 	max-width: 1000px;
 }
 
-div.padding{
-	padding: 40px;
-}
-
-div.margin{
-	margin-top:25px;
-	margin-bottom: 25px;
-}
-
-div.block{
-	background: #EEEEEE;
-	padding: 40px;
-	margin-left:auto;
-	margin-right:auto;
-	word-wrap: break-word;
-	max-width: 1000px;
-}
-
 div.side_text{
 	max-width:400px;
-	margin-left:10px;
-	margin-right:10px;
+	width:100%;
+	margin-left:3%;
+	margin-right:3%;
 }
 
 div.flex{
@@ -122,15 +143,7 @@ div.flex{
 	//text-align:center;
 }
 
-article{
-	-webkit-flex: 3;
-	-ms-flex: 3;
-	flex: 3;
-	padding: 20px;
-	width:100%;
-	//background-color: #f1f1f1;
-	background:#233237;
-}
+
 
 img#noriaki{
 	width: 300px;
