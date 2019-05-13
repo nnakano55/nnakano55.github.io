@@ -65,7 +65,7 @@ div#top_nav_container {
 	overflow: hidden;
 	min-height: 30px;
 	position:sticky;
-	top:0px;
+	top:-1px;
 	
 }
 
