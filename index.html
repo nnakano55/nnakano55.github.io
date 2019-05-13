@@ -9,11 +9,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Noriaki Nakano</title>
 		<link rel="stylesheet" type="text/css" href="style.css">  
-        <script type="javascript" src="jquery-3.4.1.min.js"></script>
-        <script type="javascript" src="topbar.js"></script>
+        <script language="javascript" src="jquery-3.4.1.min.js"></script>
+        <script language="javascript" src="topbar.js"></script>
 	</head>
     
-	<body>
+	<body onload="main()">
         
 		<header style="overflow: hidden">
             <h1>Noriaki Nakano</h1>
@@ -22,26 +22,16 @@
         
         <div id="top_nav_container">
             <nav id="top_nav">
-                <a href="#about"><font color="#FFFFFF">About</font></a>
-                <a href="#data_visualization"><font color="#FFFFFF">Data Visualization</font></a>
-                <a href="#block_2"><font color="#FFFFFF">Mobile App</font></a>
-                <a href="#block_3"><font color="#FFFFFF">Everybody's Sad</font></a>
-                <a href="#block_4"><font color="#FFFFFF">Resources</font></a>
+                <font color="#FFFFFF">
+                <a href="#" class="topbar" id="about">About</a>
+                <a href="#" class="topbar" id="data_visualization">Data Visualization</a>
+                <a href="#" class="topbar" id="block_2">Mobile App</a>
+                <a href="#" class="topbar" id="block_3">Everybody's Sad</a>
+                </font>
             </nav>
         </div>
 
         <section>
-            <!--
-            <div id="menu_part">
-                <nav id="main_nav">
-                    <ul>
-                        <li><a href="#">article 1</a></li>
-                        <li><a href="#">article 2</a></li>
-                        <li><a href="#">article 3</a></li>
-                    </ul>
-                </nav>
-            </div>
-            -->
             <article>
                 <div class="block_flex margin padding" id="about">
 
@@ -51,6 +41,9 @@
                             <p style="font-size:20px;"><b>Noriaki Nakano</b></p>
                             <p>B.S. Computer Science: Computer Game Design, December 2018</p>
                             <p>University of California, Santa Cruz</p>
+                            <p><b>LinkedIn:</b>
+                                <a href="https://www.linkedin.com/in/noriaki-nakano-803876141/" target="_blank">https://www.linkedin.com/in/noriaki-nakano-803876141/</a>
+                            </p>
                         </font>
                     </div>
                     
@@ -66,7 +59,7 @@
 
                     <div class="flex text_align">
                         <font>
-                            <p style="font-size:25px;"><b>Data Visualization Project "Suicide in Japan: Why?"</b></p>
+                            <p style="font-size:25px;"><b>Data Visualization Project: "Suicide in Japan: Why?"</b></p>
                         </font>
                     </div>
 
@@ -103,7 +96,7 @@
                                     page I would definitely do that and make sure the page works with smaller window sizes. There are
                                     other things I would change, but overall I am proud of this project and I am glad that my teammates and
                                     I decided to go with it.<br/><br/>
-                                    <b>Link:</b> <a href="/finalproject">Suicide in Japan: Why?</a>
+                                    <b>Link:</b> <a href="/finalproject" target="_blank">Suicide in Japan: Why?</a>
                                 </p>
                             </font>
                         </div>
@@ -118,7 +111,7 @@
                     </div>
 
                      <div class="side_text padding" style="margin:auto;">
-                        <p style="font-size:25px;"><b>Mobile App Team Project: Brand Recognizer</b></p>
+                        <p style="font-size:25px;"><b>Mobile App Team Project: "Brand Recognizer"</b></p>
                         <p>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             Brand Recognizer is a team project I worked on for one of my course works: Mobile Apps.
@@ -155,23 +148,34 @@
                         </font>
                     </div>
                     <div class="block_flex">
-                         <div class="side_text" style="margin:auto;">
+                         <div class="side_text" style="margin-left:auto; margin-right:auto;">
                             <p>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                 
+                                Everybody's Sad is VR game made as a final project for the CMPM 160 series.
+                                The game was made on <a href="https://unity.com/" target="_blank">Unity</a> 
+                                using Unity's VR source code. The game takes place in a room where there are certain 
+                                objects in the area which need help of some sorts. The player's objective is to satisfy
+                                these objects eventually leave the room by progressing the story.  
                             </p>
                         </div>
-                        <div class="side_text" style="margin:auto;">
+                        <div class="side_text" style="margin-left:auto; margin-right:auto;">
                             <p>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                My personal contribution to the project was general programming, but more importantly I was in charge
+                                of doing the graphics programming. My job was to create shaders for particular characters 
+                                in the game and also applying full screen effects on the camera. Some of the effects I created include
+                                a 
+                                <br/><br/>
+                                <b>Links:</b> 
+                                <ul>
+                                    <li><a href="https://store.steampowered.com/app/898080/everybodys_sad/" target="_blank">everybody's sad on Steam</a></li>
+                                    <li><a href="https://puncta.itch.io/everybodys-sad" target="_blank">everybody's sad home page</a></li>
+                                    <li><a href="https://twitter.com/everybodys_sad" target="_blank">everybody's sad twitter</a></li>
+                                </ul>
                                 
                             </p>
                         </div>
                     </div>
-                </div> 
-
-                <div class="block margin padding" id="block_4">
-                    
                 </div> 
                         
             </article>
@@ -180,7 +184,9 @@
         </section>
 
         <footer>
-            <p>footer</p>
+            <div class="block margin padding">
+                <a href="#" class="topbar">top</a>
+            </div>
         </footer>
         
 
