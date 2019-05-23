@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myModule">
+	<head>
+		<meta charset="utf-8">
+        <meta name="description" content="angular test page">
+        <meta name="keywords" content="Noriaki Nakano">
+        <meta name="author" content="Noriaki Nakano">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>angular test page</title>
+        <script language="javascript" src="src/js/jquery-3.4.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script language="javascript" src="src/js/angular_test.js"></script>
+        <link rel="icon" href="src/img/favicon.png" type="image/png" sizes="16x16">
+	</head>
+
+	<body>
+		
+		<div ng-controller="myController">
+			
+			<div>
+				First Name: {{employee.firstname}}
+			</div>
+			
+			<div>
+				Last Name: {{employee.lastname}}
+			</div>
+
+			<div>
+				Gender: {{employee.gender}}
+			</div>
+
+			<div>
+				Project Name: {{brand_recog.name}}
+			</div>
+
+			<div>
+				Course Number: {{brand_recog.class}}
+			</div>
+			
+			<div>
+				<img ng-src="{{brand_recog.flag}}" 
+					alt="{{brand_recog.name}}"
+					style="height:200px; width:100px;"/>
+			</div>
+
+			<input type="text" ng-model="message" />
+			<br/><br/>
+			{{message}}
+
+			<br/><br/>
+
+			<table>
+				<tr>
+					<td>First Name</td>
+					<td>
+						<input type="text" ng-model="employee2.firstname" />
+					</td>
+				</tr>
+				<tr>
+					<td>Last Name</td>
+					<td>
+						<input type="text" ng-model="employee2.lastname" />
+					</td>
+				</tr>
+				<tr>
+					<td>Gender Name</td>
+					<td>
+						<input type="text" ng-model="employee2.gender" />
+					</td>
+				</tr>
+			</table>
+			<br/><br/>
+
+			<table>
+				<tr>
+					<td>First Name</td>
+					<td>
+						{{employee2.firstname}}
+					</td>
+				</tr>
+				<tr>
+					<td>Last Name</td>
+					<td>
+						{{employee2.lastname}}
+					</td>
+				</tr>
+				<tr>
+					<td>Gender Name</td>
+					<td>
+						{{employee2.gender}}
+					</td>
+				</tr>
+			</table>
+
+			<br/><br/>
+
+			<table>
+				<thead>
+					<th>Firstname</th>
+					<th>Lastname</th>
+					<th>Gender</th>
+					<th>Salary</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="employee in employees">
+						<td>{{employee.firstname}}</td>
+						<td>{{employee.lastname}}</td>
+						<td>{{employee.gender}}</td>
+						<td>{{employee.salary}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<br/><br/>
+
+			<ul>
+				<li ng-repeat="country in countries" ng-init="parent_index = $index">
+					{{country.name}} - Index = {{$index}}
+					<ul>
+						<li ng-repeat="city in country.cities">
+							{{city.name}} - Parent Index= {{parent_index}}, Index = {{$index}}
+						</li>
+					</ul>
+				</li>
+			</ul>
+
+			<br/><br/>
+
+			rows to display: <input type="number" step="1" min="0" max="5" ng-model="row_limit"/>
+			<br/><br/>
+			<table border="1">
+				<thead>
+					<tr>
+						<th>Firstname</th>
+						<th>Date of Birth</th>
+						<th>Gender</th>
+						<th>Salary (number)</th>
+						<th>Salary (currency)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="employee in employees2 | limitTo:row_limit">
+						<td>{{employee.firstname | uppercase}}</td>
+						<td>{{employee.dateOfBirth | date:"dd/MM/yyyy"}}</td>
+						<td>{{employee.gender | lowercase}}</td>
+						<td>{{employee.salary | number:2}}</td>
+						<td>{{employee.salary | currency}}</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br/><br/>
+
+			<table>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Likes</th>
+						<th>Dislikes</th>
+						<th>Like/Dislike</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="technology in technologies">
+						<td>{{technology.name}}</td>
+						<td>{{technology.likes}}</td>
+						<td>{{technology.dislikes}}</td>
+						<td>
+							<input type="button" value="like" ng-click="incrementLikes(technology)"/>
+							<input type="button" value="dislike" ng-click="incrementDislikes(technology)"/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			<br/><br/>
+
+		</div>	
+		
+
+		<div>
+
+			{{ message }}
+
+		</div>
+
+	</body>
+
+
+
+
+</html>
