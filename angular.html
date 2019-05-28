@@ -7,10 +7,11 @@
         <meta name="author" content="Noriaki Nakano">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>angular test page</title>
+		
         <script language="javascript" src="src/js/jquery-3.4.1.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-        <script language="javascript" src="src/js/angular_test.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.js"></script>
         <link rel="icon" href="src/img/favicon.png" type="image/png" sizes="16x16">
+        <link rel="stylesheet" type="text/css" href="style.css">  
 	</head>
 
 	<body>
@@ -175,15 +176,68 @@
 
 			<br/><br/>
 
+
+
+			<section>
+				<article>
+					<!--
+					<div ng-repeat="box in div_content">
+						<div class="{{box.type == 0 ? 'block' : 'block_flex'}} marign padding" id="{{box.id}}">
+							<div class="{{box.type == 0 ? 'flex' : 'side_text'}} block_flex">
+								<div ng-repeat="img in box.img">
+									<img ng-src="{{img.flag}}" alt="{{img.name}}" width="100%"/>
+								</div>
+								
+							</div>
+							<div class="{{box.type == 0 ? 'flex' : 'side_text'}}" style="margin:auto;">
+								<div class="flex text_align">
+			                        <font>
+			                            <p style="font-size:25px;"><b>{{box.title}}</b></p>
+			                        </font>
+			                    </div>
+								<div class="{{box.type == 0 ? 'block_flex' : 'block'}}">
+									<div ng-repeat="section in box.info track by $index" class="side_text">
+										<p ng-bind-html="trustAsHtml(section)"></p>
+									</div>
+								</div>
+							<div>
+						</div>
+					</div>
+					-->
+					<div ng-repeat="box in div_content2">
+						<div ng-bind-html="trustAsHtml(box)"></div>
+					</div>
+
+				</article>
+			</section>
+			<footer>
+				<div class="block margin padding">
+                	<a href="#" class="topbar">top</a>
+            	</div>
+			</footer>
 		</div>	
 		
 
-		<div>
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-firestore.js"></script>
+		<script>
+		  // Your web app's Firebase configuration
+		  var firebaseConfig = {
+		    apiKey: "AIzaSyAKR2NeK1zZdM5kNJsC0I9bd8FseSUYDu0",
+		    authDomain: "nnakano-homepage.firebaseapp.com",
+		    databaseURL: "https://nnakano-homepage.firebaseio.com",
+		    projectId: "nnakano-homepage",
+		    storageBucket: "nnakano-homepage.appspot.com",
+		    messagingSenderId: "164036732100",
+		    appId: "1:164036732100:web:e395c5d288a3f0d2"
+		  };
+		  // Initialize Firebase
+		  firebase.initializeApp(firebaseConfig);
+		  console.log(firebase.app().name);
+		</script>
 
-			{{ message }}
-
-		</div>
-
+		<script language="javascript" src="src/js/angular_test.js"></script>
 	</body>
 
 

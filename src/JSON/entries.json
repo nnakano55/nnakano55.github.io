@@ -1,0 +1,30 @@
+[
+	{
+		"img":[
+			{
+				"name": "data_viz",
+				"flag": "/src/img/data_viz.png"
+			}
+		],
+		"title":"TestTest", 
+		"type": 0,
+		"info": [
+			"TestTest", 
+			"TestTest"
+		]
+	},
+	{
+		"img":[
+			{
+				"name": "brand_recog",
+				"flag": "/src/img/brand_recog.jpg"
+			}
+		],
+		"title":"TestTest1", 
+		"type": 1,
+		"info": [
+			"TestTest1", 
+			"TestTest1"
+		]
+	}
+]

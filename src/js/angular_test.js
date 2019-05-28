@@ -1,7 +1,44 @@
 
+
+
+var db = firebase.firestore();
+var data;
+
+var promise = db.collection("entries").get().then((snapshot) => {
+	snapshot.forEach((doc) => {
+		data = doc.data().data;
+	});
+});
+
+function createElementFromHTML(htmlString) {
+	var p = document.createElement('p');
+	p.innerHTML = htmlString;
+	return p;
+}
+
+function outputHTML(htmlString){
+	return htmlString;
+}
+
 var myApp = angular
 	.module("myModule", [])
-	.controller("myController", ($scope) => {
+	.factory("myService", () => {
+		return {
+			getData: () => {
+				var promise = db.collection("entries").get().then((snapshot) => {
+					return snapshot.docs[0].data().data;
+				});
+				return promise;
+			},
+			getData2: () => {
+				var promise = db.collection("whole_entry").get().then((snapshot) => {
+					return snapshot.docs[0].data().data;
+				});
+				return promise;
+			}
+		}
+	})
+	.controller("myController", ($scope, $http, $sce, myService) => {
 
 		var employee = {
 			firstname: "David",
@@ -95,7 +132,66 @@ var myApp = angular
 		$scope.message = "Hello, Angular!";
 
 		$scope.row_limit = 3;
-	});
 
+		$scope.myText = (htmlString) => {
+			return htmlString;
+		}
+			
+		/*
+		$http.get("src/JSON/entries.json").then((response) => {
+			console.log(response);
+			$scope.div_content = response.data;	
+		});
+		*/
+		/*
+		myService.getData().then((promise) => {
+			console.log(promise);
+			$scope.div_content = promise;
+			$scope.$apply();
+		});
+		*/
+		
+		myService.getData2().then((promise) => {
+			console.log(promise);
+			$scope.div_content2 = promise;
+			$scope.$apply();
+		});
+
+		$scope.trustAsHtml = (html) => {
+			return $sce.trustAsHtml(html);
+		}
+
+
+		/*
+		$scope.div_content = [
+			{
+				img:[
+					{
+						name: "data_viz",
+						flag: "/src/img/data_viz.png"
+					}
+				],
+				title:"TestTest", 
+				type: 0,
+				info: [
+					"TestTest", "TestTest"
+				]
+			},
+			{
+				img:[
+					{
+						name: "brand_recog",
+						flag: "/src/img/brand_recog.jpg"
+					}
+				],
+				title:"TestTest1", 
+				type: 1,
+				info: [
+					"TestTest1", "TestTest1"
+				]
+			}
+		];*/
+		
+	});
 
 
