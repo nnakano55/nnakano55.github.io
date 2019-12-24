@@ -1,5 +1,16 @@
+
+<!-- 
+ * Programmer: Noriaki Nakano 
+ * Summary:
+ *  	This is a test page for angularJS
+ * 
+ * Contents:
+ *  	paragraph_repeat -> outputs para_list from testpage_angular.js
+ *  	dessert_count -> outputs obj_list from testpage_angular.js
+-->
+
 <!DOCTYPE html>
-<html lang="en" ng-app="testModule">
+<html lang="en" ng-app="test_module">
 	<head>
 		<meta charset="utf-8">
         <meta name="description" content="testpage">
@@ -7,20 +18,63 @@
         <meta name="author" content="Noriaki Nakano">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Noriaki Nakano</title>
-		<link rel="stylesheet" type="text/css" href="style.css">  
+		<!--<link rel="stylesheet" type="text/css" href="style.css">  
+		-->
         <script language="javascript" src="src/js/jquery-3.4.1.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
         <script language="javascript" src="src/js/main.js"></script>
 	</head>
 
 	<body onload="main()">
-		<h2>Test Programming Page</h2>
-		<p>
-			testtesttest
-		</p>
+		
 		<div ng-controller="test_controller">
+
+			<h2>{{name}}</h2>
 			
+			<!-- 
+			 * use ng-repeat to output para_list
+			-->
+			<div id="paragraph_repeat">
+				<p ng-repeat="para in para_list">{{para}}</p>
+			</div>
+			<!-- end paragraph_repeat -->
+
+			<!--
+			 * Uses object in javascript file to create a table
+			 * <input> type:number used to dictate the number of rows shown to the user default:2
+			 * <input> type:button used to increment and decrement the "quantity" value of object 
+			-->
+			<div id="dessert_count">
+				Rows to display: <input type="number" step="1" min="0" max="{{obj_list.length}}" ng-model="row_limit" value="0"/>
+				<table border="1">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Quantity</th>
+							<th>Make/Eat</th>
+							<th>Can eat</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="obj in obj_list | limitTo:row_limit">
+							<td>{{obj.name}}</td>
+							<td>{{obj.quantity}}</td>
+							<td>
+								<input type="button" value="make" ng-click="increment_obj(obj)"/>
+								<input type="button" value="eat" ng-click="decrement_obj(obj)"/>
+							</td>
+							<td>
+								{{can_eat(obj) ? "Can be eaten!" : "There are no more!"}}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- end dessert_count -->
+
 		</div>
+		<!-- end test_controller -->
+		
 		<script language="javascript" src="src/js/testpage_angular.js"></script>
 	</body>
 
