@@ -42,9 +42,20 @@ article{
 	background:#233237;
 }
 
-nav a{
+nav a, a.topbar{
 	padding:5px;
+	outline: none;
+	border: none; 
+	text-align: center;
+	text-decoration: none;
+	color: black;
 }
+
+nav a, a.topbar:hover{
+	color: red;
+}
+
+
 /*
 span#side_menu_button{
 	background-color:#ccc;
@@ -198,6 +209,7 @@ div#menu_part{
 footer{
 	background-color: #233237;
 	padding: 10px;
+	font-weight: bold;
 	text-align: center;
 	color: white;
 }
